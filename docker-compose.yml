@@ -1,0 +1,11 @@
+version: '2'
+services:
+    backend:
+         image: 992122884453.dkr.ecr.us-east-1.amazonaws.com/validator-backend
+         ports:
+           - "8080:8080"
+       
+    frontend:
+         image: 992122884453.dkr.ecr.us-east-1.amazonaws.com/validator-frontend
+         ports:
+            - 8081:8081
