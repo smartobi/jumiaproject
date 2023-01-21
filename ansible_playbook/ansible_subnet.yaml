@@ -2,7 +2,7 @@
   - name: Create a subnet group for RDS 
     hosts: localhost
     tasks:
-      - name: Creating Subnet_Group
+      - name: Create Subnet_Group
         register: unameout
         command: "sh postgres.sh"
       - debug:
