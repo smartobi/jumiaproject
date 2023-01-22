@@ -4,7 +4,10 @@
     tasks:
       - name: Creating Helm Chart for JumiaPhoneValidatior
         register: unameout
-        command: "sh helmify.sh"
+        command: "chmod +x ./helmify.sh"
+      - name: Creating Helm Chart for JumiaPhoneValidatior
+        register: unameout
+        command: "./helmify.sh"
       
       - debug:
           var: unameout.stdout_lines 
