@@ -5,9 +5,5 @@
       - name: Creating Helm Chart for JumiaPhoneValidatior
         register: unameout
         command: "chmod +x ./helmify.sh"
-      - name: Creating Helm Chart for JumiaPhoneValidatior
-        register: unameout
-        command: "./helmify.sh"
-      
       - debug:
           var: unameout.stdout_lines 
