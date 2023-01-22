@@ -1,7 +1,7 @@
 {{/*
 Expand the name of the chart.
 */}}
-{{- define "jumia_phone_validator.name" -}}
+{{- define "jumiaphonevalidator.name" -}}
 {{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
@@ -10,7 +10,7 @@ Create a default fully qualified app name.
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 If release name contains chart name it will be used as a full name.
 */}}
-{{- define "jumia_phone_validator.fullname" -}}
+{{- define "jumiaphonevalidator.fullname" -}}
 {{- if .Values.fullnameOverride }}
 {{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" }}
 {{- else }}
@@ -26,16 +26,16 @@ If release name contains chart name it will be used as a full name.
 {{/*
 Create chart name and version as used by the chart label.
 */}}
-{{- define "jumia_phone_validator.chart" -}}
+{{- define "jumiaphonevalidator.chart" -}}
 {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
 {{/*
 Common labels
 */}}
-{{- define "jumia_phone_validator.labels" -}}
-helm.sh/chart: {{ include "jumia_phone_validator.chart" . }}
-{{ include "jumia_phone_validator.selectorLabels" . }}
+{{- define "jumiaphonevalidator.labels" -}}
+helm.sh/chart: {{ include "jumiaphonevalidator.chart" . }}
+{{ include "jumiaphonevalidator.selectorLabels" . }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
@@ -45,17 +45,17 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{/*
 Selector labels
 */}}
-{{- define "jumia_phone_validator.selectorLabels" -}}
-app.kubernetes.io/name: {{ include "jumia_phone_validator.name" . }}
+{{- define "jumiaphonevalidator.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "jumiaphonevalidator.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
 
 {{/*
 Create the name of the service account to use
 */}}
-{{- define "jumia_phone_validator.serviceAccountName" -}}
+{{- define "jumiaphonevalidator.serviceAccountName" -}}
 {{- if .Values.serviceAccount.create }}
-{{- default (include "jumia_phone_validator.fullname" .) .Values.serviceAccount.name }}
+{{- default (include "jumiaphonevalidator.fullname" .) .Values.serviceAccount.name }}
 {{- else }}
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
