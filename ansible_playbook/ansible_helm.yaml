@@ -1,0 +1,10 @@
+---
+  - name: Helm Installing Jumia-Phone-Validator MicroServices to EKS in AWS
+    hosts: localhost
+    tasks:
+      - name: Installing Jumia-Phone-Validator MicroServices
+        register: unameout
+        command: "helm install jumia_phone_validator --generate-name"
+      
+      - debug:
+          var: unameout.stdout_lines 

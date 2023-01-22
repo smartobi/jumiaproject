@@ -1,5 +1,5 @@
 ---
-  - name: Deploying to Microservice to EKS in AWS
+  - name: Configuring And Updating EKS in AWS Credentials
     hosts: localhost
     tasks:
       - name: Updating EKs Cluster Info
@@ -8,10 +8,6 @@
       - name: Describing Cluster
         register: unameout
         command: "aws eks --region eu-central-1 describe-cluster --name dev-cluster --query cluster.status"
-      - name: Getting All NameSpaces
-        register: unameout
-        command: "kubectl get ns"
-      
       - debug:
           var: unameout.stdout_lines 
 
