@@ -1,0 +1,24 @@
+backenddeploy:
+  backendapp:
+    image:
+      repository: smartcloud2022/validator-backend-image
+      tag: latest
+  replicas: 3
+frontenddeploy:
+  frontendapp:
+    image:
+      repository: smartcloud2022/validator-frontend-image
+      tag: latest
+  replicas: 3
+kubernetesClusterDomain: cluster.local
+servicebackend:
+  ports:
+  - port: 8080
+    targetPort: 8080
+  type: ClusterIP
+servicefrontend:
+  ports:
+  - name: http
+    port: 80
+    targetPort: 8081
+  type: ClusterIP

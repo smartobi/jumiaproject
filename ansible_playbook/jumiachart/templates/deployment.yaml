@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "jumiachart.fullname" . }}-backenddeploy
+  labels:
+  {{- include "jumiachart.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.backenddeploy.replicas }}
+  selector:
+    matchLabels:
+      component: backendapp
+    {{- include "jumiachart.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        component: backendapp
+      {{- include "jumiachart.selectorLabels" . | nindent 8 }}
+    spec:
+      containers:
+      - env:
+        - name: KUBERNETES_CLUSTER_DOMAIN
+          value: {{ .Values.kubernetesClusterDomain }}
+        image: {{ .Values.backenddeploy.backendapp.image.repository }}:{{ .Values.backenddeploy.backendapp.image.tag
+          | default .Chart.AppVersion }}
+        name: backendapp
+        ports:
+        - containerPort: 8080
+        resources: {}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "jumiachart.fullname" . }}-frontenddeploy
+  labels:
+  {{- include "jumiachart.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.frontenddeploy.replicas }}
+  selector:
+    matchLabels:
+      component: frontendapp
+    {{- include "jumiachart.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        component: frontendapp
+      {{- include "jumiachart.selectorLabels" . | nindent 8 }}
+    spec:
+      containers:
+      - env:
+        - name: KUBERNETES_CLUSTER_DOMAIN
+          value: {{ .Values.kubernetesClusterDomain }}
+        image: {{ .Values.frontenddeploy.frontendapp.image.repository }}:{{ .Values.frontenddeploy.frontendapp.image.tag
+          | default .Chart.AppVersion }}
+        name: frontendapp
+        ports:
+        - containerPort: 8081
+        resources: {}
