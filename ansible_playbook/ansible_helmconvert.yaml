@@ -4,7 +4,7 @@
     tasks:
       - name: Creating Helm Chart for JumiaPhoneValidatior
         register: unameout
-        command: "cat appdeploy.yaml | helmify jumiachart"
+        command: "sh helmify.sh"
       
       - debug:
           var: unameout.stdout_lines 
