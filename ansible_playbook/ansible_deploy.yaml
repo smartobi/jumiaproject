@@ -4,6 +4,6 @@
     tasks:
       - name: Create Postgress DB
         register: unameout
-        command: "sh postgresdbinstall.sh"
+        command: "sh aws s3 ls"
       - debug:
           var: unameout.stdout_lines 
