@@ -4,12 +4,12 @@
 #==================
 service:
   frontend:
-    name: frontend_service
+    name: frontendservice
     type: ClusterIP
     port: 80
     target: 8081
   backend:
-    name: backend_service
+    name: backendservice
     type: ClusterIP
     port: 8080
     target: 8080

@@ -17,4 +17,4 @@ spec:
       - name: "{{ .Values.backimage.name }}"
         image: "{{ .Values.backimage.repository }}:{{ .Values.backimage.tag }}"
         ports:
-        - containerPort: "{{ .Values.service.backend.port }}"
+        - containerPort: 8080

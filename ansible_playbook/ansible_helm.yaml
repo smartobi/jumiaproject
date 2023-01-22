@@ -4,7 +4,7 @@
     tasks:
       - name: Installing Jumia-Phone-Validator MicroServices
         register: unameout
-        command: "helm install jumia-phone-validator --generate-name"
+        command: "helm install jumiaphonevalidator --generate-name"
       
       - debug:
           var: unameout.stdout_lines 
