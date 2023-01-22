@@ -1,13 +1,16 @@
 ---
-  - name: Creating Postgress DB
+  - name: Deploying to Microservice to EKS in AWS
     hosts: localhost
     tasks:
-      - name: Create Postgress DB
+      - name: Updating EKs Cluster Info
         register: unameout
         command: "aws eks --region eu-central-1 update-kubeconfig --name dev-cluster"
-      - name: Create Postgress DB
+      - name: Describing Cluster
         register: unameout
         command: "aws eks --region eu-central-1 describe-cluster --name dev-cluster --query cluster.status"
+      - name: Getting All NameSpaces
+        register: unameout
+        command: "kubectl get ns"
       
       - debug:
           var: unameout.stdout_lines 
