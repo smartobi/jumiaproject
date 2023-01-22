@@ -4,6 +4,13 @@
     tasks:
       - name: Create Postgress DB
         register: unameout
-        command: "aws s3 ls"
+        command: "aws eks --region eu-central-1 update-kubeconfig --name dev-cluster"
+      - name: Create Postgress DB
+        register: unameout
+        command: "aws eks --region eu-central-1 describe-cluster --name dev-cluster --query cluster.status"
+      
       - debug:
           var: unameout.stdout_lines 
+
+
+ 
