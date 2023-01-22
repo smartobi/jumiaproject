@@ -1,0 +1,10 @@
+---
+  - name: Building Jumia-Phone-Validator MicroService Helm Chat with HELMIFY
+    hosts: localhost
+    tasks:
+      - name: Installing Jumia-Phone-Validator MicroServices
+        register: unameout
+        command: "cat appdeploy.yaml | helmify jumiaphonevalidator"
+      
+      - debug:
+          var: unameout.stdout_lines 
