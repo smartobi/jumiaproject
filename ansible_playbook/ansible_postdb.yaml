@@ -2,7 +2,7 @@
   - name: Creating Postgress DB
     hosts: localhost
     tasks:
-      - name: Create Postgress DB
+      - name: Create Postgresql DB
         register: unameout
         command: "sh postgresdbinstall.sh"
       - debug:
