@@ -2,9 +2,9 @@
   - name: Building Jumia-Phone-Validator MicroService Helm Chat with HELMIFY
     hosts: localhost
     tasks:
-      - name: Installing Jumia-Phone-Validator MicroServices
+      - name: Creating Helm Chart
         register: unameout
-        command: "cat appdeploy.yaml | helmify jumiaphonevalidator"
+        command: "cat appdeploy.yaml | helmify jumiachart"
       
       - debug:
           var: unameout.stdout_lines 
