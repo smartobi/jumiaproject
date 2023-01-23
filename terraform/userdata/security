@@ -1,0 +1,71 @@
+
+#////////// SECUIRTY SECTION ///////////////////////////
+
+yum install -y policycoreutils-python-utils
+
+
+yum provides /usr/sbin/semanage
+
+
+cat << EOF > /etc/ssh/sshd_config
+#  /etc/ssh/sshd_config.d/  which will be automatically included below
+Include /etc/ssh/sshd_config.d/*.conf
+
+#Servers access should be SSH only (port 1337) with SSH Key
+#Port 22
+Port 1337
+
+
+#PubkeyAuthentication yes
+AuthorizedKeysFile      .ssh/authorized_keys
+
+
+# override default of no subsystems
+Subsystem       sftp    /usr/libexec/openssh/sftp-server
+
+#Password authentication should be disabled
+PasswordAuthentication no
+#//////////////////////////////////////////////
+
+EOF
+
+semanage port -a -t ssh_port_t -p tcp 1337
+semanage port -m -t ssh_port_t -p tcp 1337
+systemctl restart sshd
+
+ss -tlpn| grep ssh
+
+sudo yum install firewalld -y
+sudo systemctl start firewalld
+sudo systemctl enable firewalld
+
+#service ports
+sudo firewall-cmd --add-port=1337/tcp --permanent
+sudo firewall-cmd --add-port=80/tcp --permanent
+sudo firewall-cmd --add-port=443/tcp --permanent
+
+#kubernetes master controller
+sudo firewall-cmd --add-port=6443/tcp --permanent
+
+sudo firewall-cmd --add-port=10250/tcp --permanent
+sudo firewall-cmd --add-port=10259/tcp --permanent
+sudo firewall-cmd --add-port=10257/tcp --permanent
+
+sudo firewall-cmd --add-port=10250/udp --permanent
+sudo firewall-cmd --add-port=10259/udp --permanent
+sudo firewall-cmd --add-port=10257/udp --permanent
+
+
+#Kubernetes worker node
+sudo firewall-cmd --add-port=10250/tcp --permanent
+sudo firewall-cmd --add-port=30000-32767/tcp --permanent
+
+sudo firewall-cmd --add-port=10250/udp --permanent
+sudo firewall-cmd --add-port=30000-32767/udpp --permanent
+
+
+sudo firewall-cmd --remove-service=ssh --permanent
+
+
+
+yum provides /usr/sbin/semanage

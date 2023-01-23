@@ -1,0 +1,9 @@
+---
+  - name: Building Jumia-Phone-Validator MicroService Helm Chat with HELMIFY
+    hosts: localhost
+    tasks:
+      - name: Creating Helm Chart for JumiaPhoneValidatior
+        register: unameout
+        command: "chmod +x ./helmify.sh"
+      - debug:
+          var: unameout.stdout_lines 

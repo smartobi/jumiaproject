@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ include "jumiachart.fullname" . }}-jumiaingress
+  labels:
+  {{- include "jumiachart.labels" . | nindent 4 }}
+spec:
+  rules:
+  - http:
+      paths:
+      - backend:
+          service:
+            name: '{{ include "jumiachart.fullname" . }}-servicefrontend'
+            port:
+              number: 80
+        path: /
+        pathType: Prefix

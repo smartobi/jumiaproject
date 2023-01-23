@@ -1,0 +1,3 @@
+aws eks --region us-west-2 update-kubeconfig --name dev-cluster  
+ aws eks --region us-west-2 describe-cluster --name dev-cluster --query cluster.status 
+ 

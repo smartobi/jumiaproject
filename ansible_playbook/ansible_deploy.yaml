@@ -1,0 +1,15 @@
+---
+  - name: Configuring And Updating EKS in AWS Credentials
+    hosts: localhost
+    tasks:
+      - name: Updating EKs Cluster Info.
+        register: unameout
+        command: "aws eks --region eu-central-1 update-kubeconfig --name dev-cluster"
+      - name: Describing Cluster
+        register: unameout
+        command: "aws eks --region eu-central-1 describe-cluster --name dev-cluster --query cluster.status"
+      - debug:
+          var: unameout.stdout_lines 
+
+
+ 

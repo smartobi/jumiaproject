@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "jumiachart.fullname" . }}-servicebackend
+  labels:
+  {{- include "jumiachart.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.servicebackend.type }}
+  selector:
+    component: backendapp
+  {{- include "jumiachart.selectorLabels" . | nindent 4 }}
+  ports:
+	{{- .Values.servicebackend.ports | toYaml | nindent 2 -}}

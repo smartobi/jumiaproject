@@ -1,0 +1,76 @@
+aws configure
+
+.aws
+  - file
+    config 
+      [default]
+      region = eu-central-1
+      output = yaml
+
+    credencial
+     [default]
+     aws_access_key_id = AKIA6N7ZB2FSRZZMMLMU
+     aws_secret_access_key = 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
+
+
+
+cat << EOF > ./aws_infra.yaml
+---
+- hosts: localhost
+  tasks:
+    - name: Create the AWS VPC
+      amazon.aws.ec2_vpc_net:
+      cidr_block: 10.100.0.0/16
+      region: eu-central-1
+EOF
+
+
+
+
+---
+- hosts: localhost
+  gather_facts: no
+  tasks:
+    - name: Geting the info of my vpc
+      amazon.aws.ec2_vpc_net_info:
+        filters:
+          "tag:Name": JumiaProject
+      register: vpcs
+    - debug: { var: vpcs.vpcs }
+
+    - name: Geting the info or the first subnet
+      amazon.aws.ec2_vpc_subnet_info:
+        filters:
+          "tag:Name": Subnet-1
+      register: subnet1_info
+
+    - set_fact:
+        subnet1_ids: "{{ subnet1_info.subnets|map(attribute='id')|list }}"
+
+    - debug: { var: subnet1_ids}
+
+    - name: Geting the info of the second subnet
+      amazon.aws.ec2_vpc_subnet_info:
+        filters:
+          "tag:Name": Subnet-2
+      register: subnet2_info
+
+    - set_fact:
+        subnet2_ids: "{{ subnet2_info.subnets|map(attribute='id')|list }}"
+
+    - debug: { var: subnet2_ids }
+    
+    - name: DB subnet group
+      community.aws.rds_subnet_group:
+        state: present
+        name: jumia-db-subnet
+        description: DB subnet for postgresql
+        subnets:
+          - "{{ subnet1_ids }}"
+          - "{{ subnet2_ids }}"
+        register: aws_db_subnet
+          
+
+
+      
+    

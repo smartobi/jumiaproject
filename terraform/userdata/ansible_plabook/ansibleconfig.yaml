@@ -1,0 +1,47 @@
+
+cat << EOF > ./ansible.cfg
+
+[defaults]
+inventory = my_inventory
+
+[inventory]
+enabled_plugins = ini, aws_ec2
+
+EOF
+======================
+
+mkdir my_inventory
+touch my_inventory/hosts
+cat << EOF > /my_inventory/hosts
+[local]
+localhost         ansible_connection=local
+EOF
+
+cat << EOF > my_inventory/hosts.aws_ec2.yaml
+---
+plugin: aws_ec2
+regions:
+  eu-central-1
+keyed_groups:
+  - key: tags.Name
+    prefix: Enviroment
+  - key: tags.Name
+    prefix: Master Node
+EOF
+
+mkdir my_inventory/group_vars
+
+cat << EOF > cat /my_inventory/group_vars
+---
+ansible_ssh_common_args: "-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null"
+ansible_ssh_port: 1337
+ansible_ssh_user: jumia-user
+ansible_ssh_private_key_file: jumiakey
+EOF
+
+
+
+
+
+
+
